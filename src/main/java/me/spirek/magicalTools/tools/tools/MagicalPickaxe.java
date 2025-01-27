@@ -24,9 +24,9 @@ public class MagicalPickaxe extends Tool {
                 true,
                 false,
                 3,
-                1,
                 0
         );
+        addCustomAttribute("mining_radius",1);
     }
 
     @Override
@@ -40,9 +40,11 @@ public class MagicalPickaxe extends Tool {
 
         boolean worked = false;
 
-        for (int x = centerX - 1; x <= centerX + 1; x++) {
-            for (int y = centerY - 1; y <= centerY + 1; y++) {
-                for (int z = centerZ - 1; z <= centerZ + 1; z++) {
+        int radius = getCustomAttribute("mining_radius",int.class);
+
+        for (int x = centerX - radius; x <= centerX + radius; x++) {
+            for (int y = centerY - radius; y <= centerY + radius; y++) {
+                for (int z = centerZ - radius; z <= centerZ + radius; z++) {
                     Block currentblock = event.getBlock().getWorld().getBlockAt(x,y,z);
                     if(currentblock.getState() instanceof Container || currentblock.isLiquid() || currentblock.isEmpty()) {
                         continue;

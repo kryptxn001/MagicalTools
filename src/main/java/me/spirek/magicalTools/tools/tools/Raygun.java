@@ -24,9 +24,10 @@ public class Raygun extends Tool {
                 true,
                 false,
                 1,
-                10,
                 500
         );
+
+        addCustomAttribute("laserdamage",10D);
     }
 
     @Override
@@ -72,7 +73,8 @@ public class Raygun extends Tool {
             }
             if(rayTraceResult.getHitEntity() instanceof LivingEntity entity) {
                 //Zásah entity
-                entity.damage(this.getSpecialdamage(),player);
+
+                entity.damage(getCustomAttribute("laserdamage",double.class),player);
                 player.playSound(player, Sound.BLOCK_AMETHYST_BLOCK_HIT,2,1);
             }
             //Jen effekt zasažení

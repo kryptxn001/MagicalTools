@@ -4,17 +4,13 @@ import me.spirek.magicalTools.ConfigManager;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public abstract class Tool {
 
@@ -22,7 +18,6 @@ public abstract class Tool {
     private String label;
     private String[] lore;
     private double meleedamage;
-    private double specialdamage;
     private long cooldown;
 
     public String[] getLore() {
@@ -57,11 +52,13 @@ public abstract class Tool {
     private Material material;
     protected HashMap<Player, Long> cooldowns = new HashMap<>();
 
+    protected HashMap<String, Object> custom_attributes = new HashMap<>();
+
     public String getName() {
         return name;
     }
 
-    public Tool(String name, String label, String[] lore, Material material, boolean unbreakable, boolean shine, boolean custom_model, double meleedamage, double specialdamage, long cooldown) {
+    public Tool(String name, String label, String[] lore, Material material, boolean unbreakable, boolean shine, boolean custom_model, double meleedamage, long cooldown) {
         this.name = name;
         this.label = label;
         this.lore = lore;
@@ -70,7 +67,6 @@ public abstract class Tool {
         this.shine = shine;
         this.custom_model = custom_model;
         this.meleedamage = meleedamage;
-        this.specialdamage = specialdamage;
         this.cooldown = cooldown;
 
         loadConfigValues();
@@ -80,8 +76,9 @@ public abstract class Tool {
         FileConfiguration config = ConfigManager.getConfig();
 
         String path = "tools."+name;
-
+            /*
         if (config.contains(path) && ConfigManager.configNotEmpty(config,path)) {
+
             String label = config.getString(path+".label");
             List<String> lore = config.getStringList(path+".lore");
             Material material = Material.valueOf(config.getString(path+".material"));
@@ -89,7 +86,6 @@ public abstract class Tool {
             boolean shine = config.getBoolean(path+".shine");
             boolean custom_model = config.getBoolean(path+".custom_model");
             double meleedamage = config.getDouble(path+".meleedamage");
-            double specialdamage = config.getDouble(path+".specialdamage");
             long cooldown = config.getLong(path+".cooldown");
 
             this.label = label;
@@ -99,21 +95,88 @@ public abstract class Tool {
             this.shine = shine;
             this.custom_model = custom_model;
             this.meleedamage = meleedamage;
-            this.specialdamage = specialdamage;
             this.cooldown = cooldown;
+
+
+
+        }**/
+        if (config.contains(path)) {
+            String label = config.getString(path + ".label");
+            if (label != null && !label.isEmpty()) {
+                this.label = label;
+            }
+
+            List<String> lore = config.getStringList(path + ".lore");
+            if (!lore.isEmpty()) {
+                this.lore = lore.toArray(new String[0]);
+            }
+
+            String materialStr = config.getString(path + ".material");
+            if (materialStr != null && !materialStr.isEmpty()) {
+                this.material = Material.valueOf(materialStr);
+            }
+
+            String unbreakableStr = config.getString(path + ".unbreakable");
+            if (unbreakableStr != null && !unbreakableStr.isEmpty()) {
+                this.unbreakable = Boolean.parseBoolean(unbreakableStr);
+            }
+
+            String shineStr = config.getString(path + ".shine");
+            if (shineStr != null && !shineStr.isEmpty()) {
+                this.shine = Boolean.parseBoolean(shineStr);
+            }
+
+            String customModelStr = config.getString(path + ".custom_model");
+            if (customModelStr != null && !customModelStr.isEmpty()) {
+                this.custom_model = Boolean.parseBoolean(customModelStr);
+            }
+
+            String meleeDamageStr = config.getString(path + ".meleedamage");
+            if (meleeDamageStr != null && !meleeDamageStr.isEmpty()) {
+                this.meleedamage = Double.parseDouble(meleeDamageStr);
+            }
+
+            String cooldownStr = config.getString(path + ".cooldown");
+            if (cooldownStr != null && !cooldownStr.isEmpty()) {
+                this.cooldown = Long.parseLong(cooldownStr);
+            }
         }
     }
+    protected void addCustomAttribute(String name, Object defvalue) {
+        FileConfiguration config = ConfigManager.getConfig();
+        String path = "tools."+this.name+".";
 
-    public double getSpecialdamage() {
-        return specialdamage;
+        if(defvalue instanceof Double) {
+            custom_attributes.put(name,config.getDouble(path+name,(double) defvalue));
+        } else if (defvalue instanceof Integer) {
+            custom_attributes.put(name,config.getInt(path+name, (int) defvalue));
+        } else if (defvalue instanceof Boolean) {
+            custom_attributes.put(name,config.getBoolean(path+name, (Boolean) defvalue));
+        } else if (defvalue instanceof String) {
+            custom_attributes.put(name,config.getString(path+name, (String) defvalue));
+        } else {
+            custom_attributes.put(name,defvalue);
+        }
+
+    }
+
+    public <T> T getCustomAttribute(String key, Class<T> type) {
+        Object value = custom_attributes.get(key);
+        if (value != null) {
+            try {
+                return (T) value;
+            } catch (ClassCastException e) {
+                throw new IllegalArgumentException("Type mismatch: original: " + type.getName() + " but got: " + value.getClass().getName());
+            }
+        } else {
+            throw new IllegalArgumentException("Attribute not found.");
+        }
     }
 
 
     public void onAttack(EntityDamageByEntityEvent event) { //kdyz predmet uderi
 
     }
-
-
 
     public void onInteract(PlayerInteractEvent event) { //kdyz predmet uderi
 

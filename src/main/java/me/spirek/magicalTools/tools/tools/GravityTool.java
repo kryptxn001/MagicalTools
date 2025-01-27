@@ -5,9 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.util.Vector;
 
@@ -29,9 +27,11 @@ public class GravityTool extends Tool {
                 true,
                 false,
                 0,
-                0,
                 1000
         );
+
+        addCustomAttribute("gravity",10D);
+        addCustomAttribute("chance",(int)50);
     }
 
     public void onAttack(EntityDamageByEntityEvent event){
@@ -40,12 +40,13 @@ public class GravityTool extends Tool {
 
         event.setCancelled(true);
         if(cooldownEnded(player, true)) {
-            entity.setVelocity(new Vector(player.getVelocity().getX()*10, player.getVelocity().getY()*-1, player.getVelocity().getZ()*10));
+            double multiplier = getCustomAttribute("gravity", double.class);
+            entity.setVelocity(new Vector(player.getVelocity().getX()*multiplier, player.getVelocity().getY()*-1, player.getVelocity().getZ()*multiplier));
             player.setVelocity(new Vector(0,0,0));
             player.playSound(entity.getLocation(), Sound.ENTITY_SHULKER_CLOSE, 1f, 1f);
             Random random = new Random();
             int chance = random.nextInt(100);
-            if(chance < 50) {
+            if(chance < getCustomAttribute("chance", int.class)) {
                 player.spawnParticle(Particle.SCRAPE,entity.getLocation().add(0,1,0),20, 1,1,1);
             } else {
                 player.spawnParticle(Particle.WAX_ON,entity.getLocation().add(0,1,0),20,1,1,1);

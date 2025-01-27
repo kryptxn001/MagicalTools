@@ -28,9 +28,9 @@ public class MobCatcher extends Tool {
                 true,
                 false,
                 0,
-                0,
                 0
         );
+        addCustomAttribute("catch_message","§6You've just captured a §l{caught_entity}.");
     }
 
 
@@ -57,7 +57,7 @@ public class MobCatcher extends Tool {
         if (hitEntity != null && getSpawnEggMaterial(hitEntity) != null && isCorrect(hitEntity)) {
             Material spawnegg = getSpawnEggMaterial(hitEntity);
 
-            player.sendMessage("§6You've just captured a §l"+hitEntity.getName());
+            player.sendMessage(getCustomAttribute("catch_message",String.class).replace("{caught_entity}",hitEntity.getName()));
             player.playSound(event.getEntity().getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5F,1);
             snowball.getWorld().dropItem(event.getEntity().getLocation(),new ItemStack(spawnegg));
             hitEntity.remove();

@@ -11,8 +11,9 @@ tools:
     shine: false
     custom_model: true
     meleedamage: 10
-    specialdamage: 0
     cooldown: 3000
+    #VVV Unique attributes to this item VVV
+    chance: 50
   raygun: #DO NOT CHANGE! ID of the tool. You can only add new custom attributes by adding existing Tool id to the config.
     label: "§2§lRaygun"
     lore:
@@ -23,5 +24,25 @@ tools:
     shine: false
     custom_model: true
     meleedamage: 1
-    specialdamage: 10
     cooldown: 2000
+    #VVV Unique attributes to this item VVV
+    laserdamage: 10
+  magicalpickaxe: #DO NOT CHANGE! ID of the tool. You can only add new custom attributes by adding existing Tool id to the config.
+    label: "§6§lFlaming Pickaxe"
+    lore:
+      - "§8Special pickaxe that destroys blocks around it."
+    material: "GOLDEN_PICKAXE"
+    unbreakable: true
+    shine: true
+    custom_model: false
+    meleedamage: 0
+    cooldown: 0
+    #VVV Unique attributes to this item VVV
+    mining_radius: 1
+  randomsword: #DO NOT CHANGE! ID of the tool. You can only add new custom attributes by adding existing Tool id to the config.
+    #VVV Unique attributes to this item VVV
+    chance: 25
+    success_message: "§6§lBaaam.... Smash!"
+    loose_message: "§7§lWhifff... Missed!"
+  mobcatcher:
+    catch_message: "§6You've just captured a §l{caught_entity}."

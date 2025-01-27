@@ -25,9 +25,9 @@ public class LightningSword extends Tool {
                 true,
                 false,
                 7,
-                0,
                 2000
         );
+        addCustomAttribute("chance",(int)50);
     }
 
     public void onAttack(EntityDamageByEntityEvent event){
@@ -37,7 +37,7 @@ public class LightningSword extends Tool {
         Random random = new Random();
         if(cooldownEnded(player, true)) {
             int chance = random.nextInt(100);
-            if(chance <= 50) {
+            if(chance <= getCustomAttribute("chance",int.class)) {
                 World world = entity.getWorld();
                 Location location = entity.getLocation();
                 world.spawn(location, LightningStrike.class);
