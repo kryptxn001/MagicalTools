@@ -31,7 +31,7 @@ public class GravityTool extends Tool {
         );
 
         addCustomAttribute("gravity",10D);
-        addCustomAttribute("chance",(int)50);
+        addCustomAttribute("chance",50);
     }
 
     public void onAttack(EntityDamageByEntityEvent event){

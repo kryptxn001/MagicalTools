@@ -27,7 +27,7 @@ public class LightningSword extends Tool {
                 7,
                 2000
         );
-        addCustomAttribute("chance",(int)50);
+        addCustomAttribute("chance",50);
     }
 
     public void onAttack(EntityDamageByEntityEvent event){

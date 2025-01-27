@@ -4,7 +4,6 @@ import me.spirek.magicalTools.tools.Tool;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import java.util.Random;
 
@@ -26,7 +25,7 @@ public class RandomSword extends Tool {
                 30,
                 1000
         );
-        addCustomAttribute("chance",(int)25);
+        addCustomAttribute("chance",25);
         addCustomAttribute("success_message","§6§lBaaam.... Smash!");
         addCustomAttribute("loose_message", "§7§lWhifff... Missed!");
     }

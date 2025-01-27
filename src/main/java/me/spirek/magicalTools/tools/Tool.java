@@ -28,10 +28,6 @@ public abstract class Tool {
         return meleedamage;
     }
 
-    public long getCooldown() {
-        return cooldown;
-    }
-
     public boolean isUnbreakable() {
         return unbreakable;
     }
@@ -211,7 +207,7 @@ public abstract class Tool {
         return false;
     }
 
-    public double getCooldownInSeconds() {
+    public double getRemainingCooldown() {
         return 0;
     }
 
