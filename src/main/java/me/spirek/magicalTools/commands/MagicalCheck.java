@@ -1,0 +1,31 @@
+package me.spirek.magicalTools.commands;
+
+import me.spirek.magicalTools.tools.ToolManager;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.Objects;
+
+public class MagicalCheck implements CommandExecutor {
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if(Objects.equals(label, "magicalcheck")) {
+            Player player = (Player) sender;
+
+            ItemStack item = player.getInventory().getItemInMainHand();
+            String uid = ToolManager.getToolID(item);
+            if (uid != null) {
+                CommandUtils.sendMessageBranded(player, "This item is magical tool. Tool ID: "+uid + ", update id: "+ToolManager.getToolUpdateID(item));
+            } else {
+                CommandUtils.sendMessageBranded(player, "This item isn't magical tool.");
+            }
+        }
+
+        return true;
+    }
+}
+

@@ -1,0 +1,27 @@
+update_id: 0  #INT: this is used to compare to a tool update id if it's different the tool gets updated.
+tools:
+  lightningsword: #DO NOT CHANGE! ID of the tool. You can only add new custom attributes by adding existing Tool id to the config.
+    label: "§b§lLightning Sword" #STRING: name of the tool in the inventory
+    lore: #the description of the tool in the inventory
+      - "§850% chance to summon a thunderstrike!"
+      - "§83 second cooldown."
+      - "§8Feel the power of storms."
+    material: "IRON_SWORD" #STRING: the item material (for example Diamond Sword, or Blaze rot, etc...)
+    unbreakable: true #BOOLEAN: true/false
+    shine: false
+    custom_model: true
+    meleedamage: 10
+    specialdamage: 0
+    cooldown: 3000
+  raygun: #DO NOT CHANGE! ID of the tool. You can only add new custom attributes by adding existing Tool id to the config.
+    label: "§2§lRaygun"
+    lore:
+      - "§8Shoots things with powerful gamma rays."
+      - "§8Can't penetrate any solid blocks."
+    material: "ECHO_SHARD"
+    unbreakable: true
+    shine: false
+    custom_model: true
+    meleedamage: 1
+    specialdamage: 10
+    cooldown: 2000

@@ -1,0 +1,17 @@
+name: MagicalTools
+version: '0.2'
+main: me.spirek.magicalTools.MagicalTools
+api-version: '1.21'
+author: Krystof Spirek
+description: 'This plugin adds various new magical items and tools.'
+
+commands:
+  magicalgive:
+    description: This is a test command.
+    usage: /magicalgive [player] [tool]
+  magicalcheck:
+    description: This is a test command.
+    usage: /magicalcheck
+  magicalupdate:
+      description: Will refresh the update id of the plugin therefor update the item metas.
+      usage: /magicalupdate
