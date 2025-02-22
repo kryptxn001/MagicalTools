@@ -10,8 +10,11 @@ commands:
     description: This is a test command.
     usage: /magicalgive [player] [tool]
   magicalcheck:
-    description: This is a test command.
+    description: Check the item in hand magical ID and Update ID.
     usage: /magicalcheck
   magicalupdate:
       description: Will refresh the update id of the plugin therefor update the item metas.
       usage: /magicalupdate
+  magicalhelp:
+      description: Useful information about Magical Tools plugin.
+      usage: /magicalhelp

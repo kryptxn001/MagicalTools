@@ -42,3 +42,7 @@ tools:
   randomsword: #DO NOT CHANGE! ID of the tool. You can only add new custom attributes by adding existing Tool id to the config.
     #VVV Unique attributes to this item VVV
     chance: 25
+    success_message: "§6§lBaaam.... Smash!"
+    loose_message: "§7§lWhifff... Missed!"
+  mobcatcher:
+    catch_message: "§6You've just captured a §l{caught_entity}."

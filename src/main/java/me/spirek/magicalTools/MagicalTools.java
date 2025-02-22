@@ -3,6 +3,7 @@ package me.spirek.magicalTools;
 
 import me.spirek.magicalTools.commands.MagicalCheck;
 import me.spirek.magicalTools.commands.MagicalGive;
+import me.spirek.magicalTools.commands.MagicalHelp;
 import me.spirek.magicalTools.commands.MagicalUpdate;
 import me.spirek.magicalTools.events.*;
 import me.spirek.magicalTools.tools.ToolManager;
@@ -20,6 +21,7 @@ public final class MagicalTools extends JavaPlugin {
         getCommand("magicalgive").setExecutor(new MagicalGive());
         getCommand("magicalcheck").setExecutor(new MagicalCheck());
         getCommand("magicalupdate").setExecutor(new MagicalUpdate());
+        getCommand("magicalhelp").setExecutor(new MagicalHelp());
 
         //Registrace eventů
         getServer().getPluginManager().registerEvents(new onEntityDamageByEntityEvent(), this);
