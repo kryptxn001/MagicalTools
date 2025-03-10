@@ -20,7 +20,7 @@ public class LightningSword extends Tool {
                         "§82 second cooldown on the effect.",
                         "§8Use it carefully."
                 },
-                Material.DIAMOND_SWORD,
+                Material.IRON_SWORD,
                 true,
                 true,
                 false,
@@ -29,7 +29,6 @@ public class LightningSword extends Tool {
         );
         addCustomAttribute("chance",50);
     }
-
     public void onAttack(EntityDamageByEntityEvent event){
         Player player = (Player) event.getDamager();
         Entity entity = event.getEntity();

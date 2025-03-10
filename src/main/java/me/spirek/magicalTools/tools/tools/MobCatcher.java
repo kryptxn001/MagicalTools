@@ -31,18 +31,22 @@ public class MobCatcher extends Tool {
                 0
         );
         addCustomAttribute("catch_message","§6You've just captured a §l{caught_entity}.");
+        addCustomAttribute("can_catch_tamed", false);
     }
 
 
     @Override
     public void onInteract(PlayerInteractEvent event) {
         if (event.getAction().name().contains("RIGHT_CLICK")) {
+            if(!cooldownEnded(event.getPlayer(), true)) {
+                event.setCancelled(true);
+            }
             ItemStack snowballItem = event.getItem();
 
             Snowball thrownSnowball = event.getPlayer().launchProjectile(Snowball.class);
             event.getPlayer().playSound(event.getPlayer(), Sound.ENTITY_EGG_THROW, 0.5F,1);
             mobcatchers.put(thrownSnowball, event.getPlayer());
-            if(!event.getPlayer().getGameMode().equals(GameMode.CREATIVE)) {
+            if(!event.getPlayer().getGameMode().equals(GameMode.CREATIVE) && snowballItem != null) {
                 snowballItem.setAmount(snowballItem.getAmount()-1);
             }
             event.setCancelled(true);
@@ -54,7 +58,7 @@ public class MobCatcher extends Tool {
         Projectile snowball = event.getEntity();
         Entity hitEntity = event.getHitEntity();
 
-        if (hitEntity != null && getSpawnEggMaterial(hitEntity) != null && isCorrect(hitEntity)) {
+        if (hitEntity != null && getSpawnEggMaterial(hitEntity) != null && isValid(hitEntity)) {
             Material spawnegg = getSpawnEggMaterial(hitEntity);
 
             player.sendMessage(getCustomAttribute("catch_message",String.class).replace("{caught_entity}",hitEntity.getName()));
@@ -69,12 +73,14 @@ public class MobCatcher extends Tool {
         }
     }
 
-    private boolean isCorrect(Entity entity) {
+    private boolean isValid(Entity entity) {
         if(entity instanceof EnderDragon) {
             return false;
         }
         if(entity instanceof Tameable tameable) {
-            return !tameable.isTamed();
+            if(!getCustomAttribute("can_catch_tamed", Boolean.class)) {
+                return !tameable.isTamed();
+            }
         }
         return true;
     }
@@ -85,7 +91,6 @@ public class MobCatcher extends Tool {
         if (entityType.isSpawnable()) {
             return Material.getMaterial(entityType.name() + "_SPAWN_EGG");
         }
-
         return null;
     }
 }

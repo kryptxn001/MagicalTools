@@ -1,5 +1,5 @@
 name: MagicalTools
-version: '0.2'
+version: '1.0'
 main: me.spirek.magicalTools.MagicalTools
 api-version: '1.21'
 author: Krystof Spirek

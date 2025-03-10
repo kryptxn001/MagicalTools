@@ -3,30 +3,30 @@ tools:
   lightningsword: #DO NOT CHANGE! ID of the tool. You can only add new custom attributes by adding existing Tool id to the config.
     label: "§b§lLightning Sword" #STRING: name of the tool in the inventory
     lore: #the description of the tool in the inventory
-      - "§850% chance to summon a thunderstrike!"
-      - "§83 second cooldown."
-      - "§8Feel the power of storms."
+      - "§850% to strike your enemy with lightning!"
+      - "§82 second cooldown on the effect."
+      - "§8Use it carefully."
     material: "IRON_SWORD" #STRING: the item material (for example Diamond Sword, or Blaze rot, etc...)
     unbreakable: true #BOOLEAN: true/false
-    shine: false
-    custom_model: true
-    meleedamage: 10
-    cooldown: 3000
+    shine: false #BOOLEAN: true/false
+    custom_model: true #BOOLEAN: true/false
+    meleedamage: 1 #DOUBLE
+    cooldown: 3000 #INTEGER
     #VVV Unique attributes to this item VVV
-    chance: 50
+    chance: 50 #INTEGER
   raygun: #DO NOT CHANGE! ID of the tool. You can only add new custom attributes by adding existing Tool id to the config.
     label: "§2§lRaygun"
     lore:
-      - "§8Shoots things with powerful gamma rays."
+      - "§8Shoots laser with powerful gamma rays."
       - "§8Can't penetrate any solid blocks."
     material: "ECHO_SHARD"
     unbreakable: true
-    shine: false
+    shine: true
     custom_model: true
     meleedamage: 1
     cooldown: 2000
     #VVV Unique attributes to this item VVV
-    laserdamage: 10
+    laserdamage: 10 #DOUBLE
   magicalpickaxe: #DO NOT CHANGE! ID of the tool. You can only add new custom attributes by adding existing Tool id to the config.
     label: "§6§lFlaming Pickaxe"
     lore:
@@ -35,14 +35,50 @@ tools:
     unbreakable: true
     shine: true
     custom_model: false
+    meleedamage: 3
+    cooldown: 0
+    #VVV Unique attributes to this item VVV
+    mining_radius: 1 #INTEGER
+    destroy_particle: "LAVA"
+  randomsword: #DO NOT CHANGE! ID of the tool. You can only add new custom attributes by adding existing Tool id to the config.
+    label: "§f§k§lkkk §r§4§lGambler's Axe §f§k§lkkk"
+    lore:
+      - "§8Very heavy axe with a strong hit."
+      - "§825% chance to deal damage."
+      - "§81 second cooldown."
+    material: "NETHERITE_AXE"
+    unbreakable: true
+    shine: true
+    custom_model: false
+    meleedamage: 30
+    cooldown: 1000
+    #VVV Unique attributes to this item VVV
+    chance: 25
+    success_message: "§6§lBaaam.... Smash!" #STRING
+    loose_message: "§7§lWhifff... Missed!" #STRING
+  mobcatcher:
+    label: "§f§lMob Catcher"
+    lore:
+      - "§8Turns mob into a spawn egg."
+    material: "SNOWBALL"
+    unbreakable: true
+    shine: true
+    custom_model: false
     meleedamage: 0
     cooldown: 0
     #VVV Unique attributes to this item VVV
-    mining_radius: 1
-  randomsword: #DO NOT CHANGE! ID of the tool. You can only add new custom attributes by adding existing Tool id to the config.
+    catch_message: "§6You've just captured a §l{caught_entity}." #STRING
+  gravitytool:
+    label: "§b§lGravity§6§lPipe"
+    lore:
+      - "§8A pipe that transfers kinetic energy."
+      - "§80 attack damage!"
+      - "§81 second cooldown."
+    material: "BLAZE_ROD"
+    unbreakable: true
+    shine: true
+    custom_model: false
+    meleedamage: 0
+    cooldown: 1000
     #VVV Unique attributes to this item VVV
-    chance: 25
-    success_message: "§6§lBaaam.... Smash!"
-    loose_message: "§7§lWhifff... Missed!"
-  mobcatcher:
-    catch_message: "§6You've just captured a §l{caught_entity}."
+    gravity_multiplier: 10 #DOUBLE

@@ -1,5 +1,6 @@
 package me.spirek.magicalTools;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -27,17 +28,7 @@ public class ConfigManager {
         try {
             config.save(configFile);
         } catch (IOException e) {
-            e.printStackTrace();
+            Bukkit.getConsoleSender().sendMessage("§4[MagicalTools] Error while saving config!");
         }
-    }
-
-    public static boolean configNotEmpty(FileConfiguration config, String path) {
-        return config.isSet(path + ".label") &&
-                config.isSet(path + ".lore") &&
-                config.isSet(path + ".material") &&
-                config.isSet(path + ".unbreakable") &&
-                config.isSet(path + ".meleedamage") &&
-                config.isSet(path+ ".specialdamage") &&
-                config.isSet(path + ".cooldown");
     }
 }

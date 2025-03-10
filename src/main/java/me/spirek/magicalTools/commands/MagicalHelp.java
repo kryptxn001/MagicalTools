@@ -1,5 +1,6 @@
 package me.spirek.magicalTools.commands;
 
+import me.spirek.magicalTools.MagicalTools;
 import me.spirek.magicalTools.tools.Tool;
 import me.spirek.magicalTools.tools.ToolManager;
 import org.bukkit.Bukkit;
@@ -13,17 +14,12 @@ import java.util.Objects;
 public class MagicalHelp implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(Objects.equals(label, "magicalhelp")) {
+        if (Objects.equals(label, "magicalhelp")) {
             Player player = (Player) sender;
-
             if (args.length == 0) {
                 //HELP obecne
-                CommandUtils.sendMessageBranded(player, "Welcome to the Magical Tools help page.\n" +
-                        "------------------------------------\n" +
-                        "Magical Tools adds various weapons and tools that can be obtained via the /magicalgive command.\n" +
-                        "To check the magical tool ID and Update ID of the item in hand, use the /magicalcheck command.\n" +
-                        "If you changed the attributes of a tool in the config file, you must use the /magicalupdate afterwards the server got reloaded. Otherwise the outdated tools will not update.");
-            } else if(args.length == 1) {
+                CommandUtils.sendMessageBranded(player, "Welcome to the Magical Tools "+MagicalTools.VERSION+" help page.\n------------------------------------\nMagical Tools adds various weapons and tools that can be obtained via the /magicalgive command.\nTo check the magical tool ID and Update ID of the item in hand, use the /magicalcheck command.\nIf you changed the attributes of a tool in the config file, you must use the /magicalupdate afterwards the server got reloaded. Otherwise the outdated tools will not update.");
+            } else if (args.length == 1) {
                 // HELP prikaz
                 switch (args[0]) {
                     case "magicalgive" -> CommandUtils.sendMessageBranded(player, "Gives a player magical tool. \n" +
@@ -39,7 +35,6 @@ public class MagicalHelp implements CommandExecutor {
                 }
             }
         }
-
         return true;
     }
 }

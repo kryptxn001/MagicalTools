@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MagicalTools extends JavaPlugin {
     public static final String NAMESPACE = "magicaltools";
+    public static final String VERSION = "1.0";
 
     @Override
     public void onEnable() {
@@ -34,7 +35,7 @@ public final class MagicalTools extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new onPlayerInteractEvent(), this);
 
         ToolManager.loadTools();
-        Bukkit.getConsoleSender().sendMessage("§3Magical Tools is initialized!");
+        Bukkit.getConsoleSender().sendMessage("§3Magical Tools is initialized! Made by Kryštof Špírek");
     }
 
     @Override

@@ -30,7 +30,7 @@ public class RandomSword extends Tool {
         addCustomAttribute("loose_message", "§7§lWhifff... Missed!");
     }
 
-    public void onAttack(EntityDamageByEntityEvent event){{
+    public void onAttack(EntityDamageByEntityEvent event){
         event.setCancelled(true);
 
         Player player = (Player) event.getDamager();
@@ -47,7 +47,6 @@ public class RandomSword extends Tool {
                 player.sendMessage(getCustomAttribute("success_message",String.class));
             } else {
                 player.sendMessage(getCustomAttribute("loose_message",String.class));
-            }
             }
         }
     }

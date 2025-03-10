@@ -1,6 +1,8 @@
 package me.spirek.magicalTools.tools.tools;
 
+import me.spirek.magicalTools.MagicalTools;
 import me.spirek.magicalTools.tools.Tool;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -27,6 +29,7 @@ public class MagicalPickaxe extends Tool {
                 0
         );
         addCustomAttribute("mining_radius",1);
+        addCustomAttribute("destroy_particle", "LAVA");
     }
 
     @Override
@@ -34,6 +37,12 @@ public class MagicalPickaxe extends Tool {
         if(event.isCancelled()) {
             return;
         }
+
+        if(!cooldownEnded(event.getPlayer(), true)) {
+            event.setCancelled(true);
+            return;
+        }
+
         int centerX = event.getBlock().getX();
         int centerY = event.getBlock().getY();
         int centerZ = event.getBlock().getZ();
@@ -66,12 +75,22 @@ public class MagicalPickaxe extends Tool {
         }
 
         if(worked) {
-            event.getPlayer().spawnParticle(Particle.LAVA,event.getBlock().getLocation(),20,1,1,1);
+            event.getPlayer().spawnParticle(getValidParticle(),event.getBlock().getLocation(),20,1,1,1);
         }
     }
 
-    public boolean isIndestructible(Material material) {
-        // List of indestructible blocks
+    private Particle getValidParticle() {
+        try {
+            Particle.valueOf(getCustomAttribute("destroy_particle", String.class));
+        } catch (IllegalArgumentException e) {
+            Bukkit.getConsoleSender().sendMessage("§4[MagicalTools] Specified magicalpickaxe destroy particle doesn't exist!");
+            return Particle.LAVA;
+        }
+        return Particle.valueOf(getCustomAttribute("destroy_particle", String.class));
+    }
+
+    private boolean isIndestructible(Material material) {
+        // Pokud je blok nezničitelný vrátí true
         return material == Material.BEDROCK ||
                 material == Material.BARRIER ||
                 material == Material.COMMAND_BLOCK ||

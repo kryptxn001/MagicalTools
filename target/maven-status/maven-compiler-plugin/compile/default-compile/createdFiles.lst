@@ -17,6 +17,7 @@ me\spirek\magicalTools\tools\ToolManager.class
 me\spirek\magicalTools\events\onPlayerInteractEvent.class
 me\spirek\magicalTools\tools\tools\MagicalPickaxe.class
 me\spirek\magicalTools\commands\MagicalGive.class
+me\spirek\magicalTools\commands\MagicalHelp.class
 me\spirek\magicalTools\events\onEntityDamageByEntityEvent.class
 me\spirek\magicalTools\tools\tools\MobCatcher.class
 me\spirek\magicalTools\tools\tools\GravityTool.class

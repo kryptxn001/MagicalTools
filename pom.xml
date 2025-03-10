@@ -6,7 +6,7 @@
 
     <groupId>me.spirek</groupId>
     <artifactId>magicaltools</artifactId>
-    <version>0.2</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>magicaltools</name>

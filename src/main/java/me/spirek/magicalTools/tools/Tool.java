@@ -13,41 +13,32 @@ import org.bukkit.inventory.ItemStack;
 import java.util.*;
 
 public abstract class Tool {
-
     private final String name;
     private String label;
     private String[] lore;
     private double meleedamage;
     private long cooldown;
-
     public String[] getLore() {
         return lore;
     }
-
     public double getMeleedamage() {
         return meleedamage;
     }
-
     public boolean isUnbreakable() {
         return unbreakable;
     }
-
     public boolean isShine() {
         return shine;
     }
-
     public boolean isCustom_model() {
         return custom_model;
     }
-
     public Material getMaterial() {
         return material;
     }
-
     private boolean unbreakable, shine, custom_model;
     private Material material;
     protected HashMap<Player, Long> cooldowns = new HashMap<>();
-
     protected HashMap<String, Object> custom_attributes = new HashMap<>();
 
     public String getName() {
@@ -72,30 +63,7 @@ public abstract class Tool {
         FileConfiguration config = ConfigManager.getConfig();
 
         String path = "tools."+name;
-            /*
-        if (config.contains(path) && ConfigManager.configNotEmpty(config,path)) {
 
-            String label = config.getString(path+".label");
-            List<String> lore = config.getStringList(path+".lore");
-            Material material = Material.valueOf(config.getString(path+".material"));
-            boolean unbreakable = config.getBoolean(path+".unbreakable");
-            boolean shine = config.getBoolean(path+".shine");
-            boolean custom_model = config.getBoolean(path+".custom_model");
-            double meleedamage = config.getDouble(path+".meleedamage");
-            long cooldown = config.getLong(path+".cooldown");
-
-            this.label = label;
-            this.lore = lore.toArray(new String[0]);
-            this.material = material;
-            this.unbreakable = unbreakable;
-            this.shine = shine;
-            this.custom_model = custom_model;
-            this.meleedamage = meleedamage;
-            this.cooldown = cooldown;
-
-
-
-        }**/
         if (config.contains(path)) {
             String label = config.getString(path + ".label");
             if (label != null && !label.isEmpty()) {
@@ -155,7 +123,6 @@ public abstract class Tool {
         }
 
     }
-
     public <T> T getCustomAttribute(String key, Class<T> type) {
         Object value = custom_attributes.get(key);
         if (value != null) {
@@ -168,24 +135,18 @@ public abstract class Tool {
             throw new IllegalArgumentException("Attribute not found.");
         }
     }
-
-
     public void onAttack(EntityDamageByEntityEvent event) { //kdyz predmet uderi
 
     }
-
     public void onInteract(PlayerInteractEvent event) { //kdyz predmet uderi
 
     }
-
-    public String getLabel() {
-        return label;
-    }
-
     public void onBlockBreak(BlockBreakEvent event) {
 
     }
-
+    public String getLabel() {
+        return label;
+    }
     public ItemStack getItem() {
         return ToolManager.createItem(this);
     }
@@ -210,7 +171,6 @@ public abstract class Tool {
     public double getRemainingCooldown() {
         return 0;
     }
-
     public void resetCooldown(Player player) {
         cooldowns.put(player, System.currentTimeMillis());
     }

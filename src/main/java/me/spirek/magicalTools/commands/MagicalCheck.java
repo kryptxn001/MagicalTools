@@ -10,7 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Objects;
 
 public class MagicalCheck implements CommandExecutor {
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(Objects.equals(label, "magicalcheck")) {
@@ -24,7 +23,6 @@ public class MagicalCheck implements CommandExecutor {
                 CommandUtils.sendMessageBranded(player, "This item isn't magical tool.");
             }
         }
-
         return true;
     }
 }

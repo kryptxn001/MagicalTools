@@ -1,6 +1,7 @@
 D:\Documents\Maturitní práce\Plugin\MagicalTools\src\main\java\me\spirek\magicalTools\commands\CommandUtils.java
 D:\Documents\Maturitní práce\Plugin\MagicalTools\src\main\java\me\spirek\magicalTools\commands\MagicalCheck.java
 D:\Documents\Maturitní práce\Plugin\MagicalTools\src\main\java\me\spirek\magicalTools\commands\MagicalGive.java
+D:\Documents\Maturitní práce\Plugin\MagicalTools\src\main\java\me\spirek\magicalTools\commands\MagicalHelp.java
 D:\Documents\Maturitní práce\Plugin\MagicalTools\src\main\java\me\spirek\magicalTools\commands\MagicalUpdate.java
 D:\Documents\Maturitní práce\Plugin\MagicalTools\src\main\java\me\spirek\magicalTools\ConfigManager.java
 D:\Documents\Maturitní práce\Plugin\MagicalTools\src\main\java\me\spirek\magicalTools\events\onBlockBreakEvent.java

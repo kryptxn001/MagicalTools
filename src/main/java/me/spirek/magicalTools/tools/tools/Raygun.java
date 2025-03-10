@@ -16,7 +16,7 @@ public class Raygun extends Tool {
                 TOOLID,
                 "§2§lRaygun",
                 new String[] {
-                        "§8Shoots things with powerful gamma rays.",
+                        "§8Shoots laser with powerful gamma rays.",
                         "§8Can't penetrate any solid blocks."
                 },
                 Material.ECHO_SHARD,
@@ -24,7 +24,7 @@ public class Raygun extends Tool {
                 true,
                 false,
                 1,
-                500
+                2000
         );
 
         addCustomAttribute("laserdamage",10D);
@@ -48,14 +48,14 @@ public class Raygun extends Tool {
         //Získat normalizovaný směrový vector (kam hráč kouká)
         Vector dirvec = player.getLocation().getDirection().normalize();
         Location eyeloc = player.getLocation().add(0,player.getEyeHeight(),0);
-
         Location offsetloc = eyeloc.add(dirvec.multiply(2));
 
         double blockdistance = 100;
+        Block hitblock = null;
 
         RayTraceResult rayTraceBlockResult = player.rayTraceBlocks(32,FluidCollisionMode.NEVER);
         if(rayTraceBlockResult != null && rayTraceBlockResult.getHitBlock() != null) {
-            Block hitblock = rayTraceBlockResult.getHitBlock();
+            hitblock = rayTraceBlockResult.getHitBlock();
             blockdistance = eyeloc.distance(hitblock.getLocation());
         }
 
@@ -63,8 +63,8 @@ public class Raygun extends Tool {
         if(rayTraceResult != null && rayTraceResult.getHitEntity() != null) {
             //Pokud raycast něco vrátil.
             double entitydistance = eyeloc.distance(rayTraceResult.getHitEntity().getLocation());
-            if(blockdistance < entitydistance) {
-                if(!rayTraceBlockResult.getHitBlock().isPassable()) {
+            if(blockdistance < entitydistance && hitblock != null) {
+                if(!hitblock.isPassable()) {
                     //Pokud byl block blíž než entita (znamená že blok byl před entitou a tudiž nemůže být zasažena)
                     drawRay(blockdistance-blockdistance*0.5, player);
                     Impact(player, rayTraceBlockResult.getHitPosition());
@@ -73,7 +73,6 @@ public class Raygun extends Tool {
             }
             if(rayTraceResult.getHitEntity() instanceof LivingEntity entity) {
                 //Zásah entity
-
                 entity.damage(getCustomAttribute("laserdamage",double.class),player);
                 player.playSound(player, Sound.BLOCK_AMETHYST_BLOCK_HIT,2,1);
             }
@@ -102,7 +101,6 @@ public class Raygun extends Tool {
 
     private void Impact(Player player, Vector pos) {
         player.getWorld().spawnParticle(Particle.GLOW_SQUID_INK, pos.toLocation(player.getWorld()),50,1,1,1);
-        //player.getWorld().playSound(pos.toLocation(player.getWorld()), Sound.ENTITY_ALLAY_HURT,0.5f,1f);
         player.getWorld().playSound(pos.toLocation(player.getWorld()), Sound.ENTITY_FIREWORK_ROCKET_TWINKLE_FAR,0.5f,1f);
     }
 }

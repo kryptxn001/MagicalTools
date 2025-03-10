@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class onPlayerInteractEvent implements Listener {
 
     @EventHandler
-    public void onPlayerInteractEvent(PlayerInteractEvent event) {
+    public void onPlayerInteract(PlayerInteractEvent event) {
         Tool tool = ToolManager.getToolbyItemStack(event.getItem());
 
         if(tool != null) {

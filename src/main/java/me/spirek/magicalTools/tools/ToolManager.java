@@ -7,24 +7,29 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.tag.DamageTypeTags;
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
-import java.util.spi.ToolProvider;
 
 public class ToolManager {
 
-    public static ArrayList<Tool> tools = new ArrayList<>();
     private static final NamespacedKey ITEM_UID_KEY = new NamespacedKey("magicaltools", "tool_id");
     private static final NamespacedKey ITEM_UPDATE_KEY = new NamespacedKey("magicaltools", "update_id");
+    private static final ArrayList<Tool> tools = new ArrayList<>();
+
+    public static ArrayList<Tool> getAllTools() {
+        return tools;
+    }
+
     public static void loadTools() {
         tools.add(new LightningSword());
         tools.add(new RandomSword());
@@ -34,9 +39,10 @@ public class ToolManager {
         tools.add(new GravityTool());
     }
 
+
     public static Tool getToolbyID(String name) {
         for (Tool tool : tools) {
-            if(Objects.equals(tool.getName(), name)) {
+            if (Objects.equals(tool.getName(), name)) {
                 return tool;
             }
         }
@@ -44,8 +50,8 @@ public class ToolManager {
     }
 
     public static Tool getTool(Class<? extends Tool> toolclass) {
-        for(Tool tool : tools) {
-            if(tool.getClass().equals(toolclass)) {
+        for (Tool tool : tools) {
+            if (tool.getClass().equals(toolclass)) {
                 return tool;
             }
         }
@@ -55,9 +61,8 @@ public class ToolManager {
 
     public static Tool getToolbyItemStack(ItemStack itemStack) {
         String toolid = getToolID(itemStack);
-
-        for(Tool tool : tools) {
-            if(Objects.equals(toolid, tool.getName())) {
+        for (Tool tool : tools) {
+            if (Objects.equals(toolid, tool.getName())) {
                 return tool;
             }
         }
@@ -67,7 +72,6 @@ public class ToolManager {
     public static ItemStack createItem(Tool tool) {
         // Create the ItemStack
         ItemStack item = new ItemStack(tool.getMaterial());
-
         // Get the ItemMeta
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
@@ -76,11 +80,10 @@ public class ToolManager {
             meta.setDisplayName(tool.getLabel());
             meta.setLore(Arrays.asList(tool.getLore()));
 
-            if(tool.isUnbreakable()) {
+            if (tool.isUnbreakable()) {
                 meta.setUnbreakable(true);
                 meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
             }
-
 
             NamespacedKey attackDamageKey = new NamespacedKey(MagicalTools.NAMESPACE, "meleedamage");
             AttributeModifier damageModifier = new AttributeModifier(
@@ -92,8 +95,9 @@ public class ToolManager {
             meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier);
 
             //Shine effect
-            if(tool.isShine()) {
-                meta.addEnchant(Enchantment.FROST_WALKER, 1, true);
+            if (tool.isShine()) {
+                meta.setEnchantmentGlintOverride(true);
+                //meta.addEnchant(Enchantment.FROST_WALKER, 1, true);
             }
 
             meta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ENCHANTS);
@@ -101,20 +105,17 @@ public class ToolManager {
             // nastavuje id pro rozpoznani
             PersistentDataContainer container = meta.getPersistentDataContainer();
             NamespacedKey key = new NamespacedKey(MagicalTools.NAMESPACE, "tool_id");
-            NamespacedKey updateKey = new NamespacedKey(MagicalTools.NAMESPACE,"update_id");
+            NamespacedKey updateKey = new NamespacedKey(MagicalTools.NAMESPACE, "update_id");
             container.set(key, PersistentDataType.STRING, tool.getName());
             container.set(updateKey, PersistentDataType.INTEGER, UpdateManager.update_id);
 
             //meta.setCustomModelData(custom_model_data);
-            if(tool.isCustom_model()) {
-                meta.setItemModel(new NamespacedKey(MagicalTools.NAMESPACE,tool.getName()));
+            if (tool.isCustom_model()) {
+                meta.setItemModel(new NamespacedKey(MagicalTools.NAMESPACE, tool.getName()));
             }
-
-
-
+            meta.setDamageResistant(DamageTypeTags.IS_FIRE);
             item.setItemMeta(meta);
         }
-
         return item;
     }
 
@@ -145,13 +146,8 @@ public class ToolManager {
             } catch (NullPointerException e) {
                 return -1;
             }
-
-
         }
 
         return -1;
     }
-
-
-
 }

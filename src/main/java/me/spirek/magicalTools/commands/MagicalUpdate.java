@@ -17,11 +17,9 @@ public class MagicalUpdate implements CommandExecutor {
             if(!player.isOp()) {
                 return false;
             }
-
             UpdateManager.newUpdate();
             CommandUtils.sendMessageBranded(player, "Updated! New update id: "+UpdateManager.update_id);
         }
-
         return true;
     }
 }
