@@ -1,6 +1,7 @@
 me\spirek\magicalTools\events\onProjectileHitEvent.class
 me\spirek\magicalTools\tools\tools\Raygun.class
 me\spirek\magicalTools\events\onEntityPickupItemEvent.class
+me\spirek\magicalTools\tools\tools\GravityPipe.class
 me\spirek\magicalTools\MagicalTools.class
 me\spirek\magicalTools\UpdateManager.class
 me\spirek\magicalTools\commands\MagicalUpdate.class
@@ -19,6 +20,6 @@ me\spirek\magicalTools\tools\tools\MagicalPickaxe.class
 me\spirek\magicalTools\commands\MagicalGive.class
 me\spirek\magicalTools\commands\MagicalHelp.class
 me\spirek\magicalTools\events\onEntityDamageByEntityEvent.class
+me\spirek\magicalTools\MagicalTools$Settings.class
 me\spirek\magicalTools\tools\tools\MobCatcher.class
-me\spirek\magicalTools\tools\tools\GravityTool.class
 me\spirek\magicalTools\commands\MagicalCheck.class
