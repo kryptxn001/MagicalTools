@@ -16,9 +16,15 @@ public class MagicalHelp implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (Objects.equals(label, "magicalhelp")) {
             Player player = (Player) sender;
+
+            if(!sender.hasPermission("magicaltools.help")) {
+                CommandUtils.sendMessageBranded(player,"MagicalTools plugin v"+MagicalTools.VERSION+" author: Kryštof Špírek\nPlugin website: "+MagicalTools.WEBSITE);
+                return true;
+            }
+
             if (args.length == 0) {
                 //HELP obecne
-                CommandUtils.sendMessageBranded(player, "Welcome to the Magical Tools "+MagicalTools.VERSION+" help page.\n------------------------------------\nMagical Tools adds various weapons and tools that can be obtained via the /magicalgive command.\nTo check the magical tool ID and Update ID of the item in hand, use the /magicalcheck command.\nIf you changed the attributes of a tool in the config file, you must use the /magicalupdate afterwards the server got reloaded. Otherwise the outdated tools will not update.");
+                CommandUtils.sendMessageBranded(player, "Welcome to the MagicalTools v"+MagicalTools.VERSION+" admin help page.\n--------------------------------------------------\nWeapons and tools can be obtained via the /magicalgive command.\nTo check the magical tool ID and Update ID of the item in hand, use the /magicalcheck command.\nIf you changed the attributes of a tool in the config file, you must use the /magicalupdate afterwards the server got reloaded. Otherwise the outdated tools will not update.");
             } else if (args.length == 1) {
                 // HELP prikaz
                 switch (args[0]) {

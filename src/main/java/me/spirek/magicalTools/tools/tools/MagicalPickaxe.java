@@ -1,6 +1,7 @@
 package me.spirek.magicalTools.tools.tools;
 
 import me.spirek.magicalTools.MagicalTools;
+import me.spirek.magicalTools.commands.CommandUtils;
 import me.spirek.magicalTools.tools.Tool;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -11,9 +12,15 @@ import org.bukkit.block.Container;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * Represents a special pickaxe that destroys blocks in a defined radius.
+ */
 public class MagicalPickaxe extends Tool {
     private final static String TOOLID = "magicalpickaxe";
 
+    /**
+     * Constructs a MagicalPickaxe with default attributes.
+     */
     public MagicalPickaxe() {
         super(
                 TOOLID,
@@ -32,6 +39,10 @@ public class MagicalPickaxe extends Tool {
         addCustomAttribute("destroy_particle", "LAVA");
     }
 
+    /**
+     * Handles block breaking and destroys surrounding blocks based on radius.
+     * @param event The block break event.
+     */
     @Override
     public void onBlockBreak(BlockBreakEvent event) {
         if(event.isCancelled()) {
@@ -41,6 +52,8 @@ public class MagicalPickaxe extends Tool {
         if(!cooldownEnded(event.getPlayer(), true)) {
             event.setCancelled(true);
             return;
+        } else {
+            CommandUtils.sendCooldownMessage(event.getPlayer(),getRemainingCooldown(event.getPlayer()));
         }
 
         int centerX = event.getBlock().getX();
@@ -79,6 +92,10 @@ public class MagicalPickaxe extends Tool {
         }
     }
 
+    /**
+     * Retrieves the valid particle effect for block destruction.
+     * @return The particle effect.
+     */
     private Particle getValidParticle() {
         try {
             Particle.valueOf(getCustomAttribute("destroy_particle", String.class));
@@ -89,6 +106,11 @@ public class MagicalPickaxe extends Tool {
         return Particle.valueOf(getCustomAttribute("destroy_particle", String.class));
     }
 
+    /**
+     * Checks if the given material is indestructible.
+     * @param material The material to check.
+     * @return True if the block is indestructible, false otherwise.
+     */
     private boolean isIndestructible(Material material) {
         // Pokud je blok nezničitelný vrátí true
         return material == Material.BEDROCK ||

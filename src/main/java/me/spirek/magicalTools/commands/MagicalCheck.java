@@ -14,6 +14,10 @@ public class MagicalCheck implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(Objects.equals(label, "magicalcheck")) {
             Player player = (Player) sender;
+            if(!sender.hasPermission("magicaltools.check")) {
+                CommandUtils.sendNotPermissions(player);
+                return true;
+            }
 
             ItemStack item = player.getInventory().getItemInMainHand();
             String uid = ToolManager.getToolID(item);

@@ -1,5 +1,6 @@
 package me.spirek.magicalTools.tools.tools;
 
+import me.spirek.magicalTools.commands.CommandUtils;
 import me.spirek.magicalTools.tools.Tool;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
@@ -7,8 +8,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import java.util.Random;
 
+/**
+ * Represents a weapon with a chance-based attack.
+ */
 public class RandomSword extends Tool {
     private final static String TOOLID = "randomsword";
+    /**
+     * Constructs a Random Sword with default attributes.
+     */
     public RandomSword() {
         super(
                 TOOLID,
@@ -30,6 +37,12 @@ public class RandomSword extends Tool {
         addCustomAttribute("loose_message", "§7§lWhifff... Missed!");
     }
 
+    /**
+     * Handles the attack event when the sword is used.
+     * Has a chance to deal damage or miss.
+     *
+     * @param event The event triggered by the attack.
+     */
     public void onAttack(EntityDamageByEntityEvent event){
         event.setCancelled(true);
 
@@ -48,6 +61,8 @@ public class RandomSword extends Tool {
             } else {
                 player.sendMessage(getCustomAttribute("loose_message",String.class));
             }
+        } else {
+            CommandUtils.sendCooldownMessage(player,getRemainingCooldown(player));
         }
     }
 }

@@ -16,8 +16,9 @@ public class MagicalGive implements CommandExecutor {
         if (Objects.equals(label, "magicalgive")) {
             Player player = (Player) sender;
 
-            if (!player.isOp()) {
-                return false;
+            if(!sender.hasPermission("magicaltools.give")) {
+                CommandUtils.sendNotPermissions(player);
+                return true;
             }
 
             if(args.length == 0) {
@@ -33,6 +34,10 @@ public class MagicalGive implements CommandExecutor {
                 if (cmdPlayer != null) { // když hrač existuje
                     Tool cmdtool = ToolManager.getToolbyID(args[1]);
                     if (cmdtool != null) {
+                        if(cmdtool.isDisabled() || player.hasPermission("magicaltools.ignoredisabled")) {
+                            CommandUtils.sendMessageBranded(player,cmdtool.getName() +" is disabled! You can't spawn it, unless you have magicaltools.ignoredisabled permission.");
+                            return true;
+                        }
                         cmdPlayer.getInventory().addItem(cmdtool.getItem());
                         CommandUtils.sendMessageBranded(player, "Gave " + cmdtool.getLabel() + CommandUtils.resetformat + " to " + args[0] + ".");
                     } else {

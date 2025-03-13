@@ -1,5 +1,6 @@
 package me.spirek.magicalTools.tools.tools;
 
+import me.spirek.magicalTools.commands.CommandUtils;
 import me.spirek.magicalTools.tools.Tool;
 import me.spirek.magicalTools.tools.ToolManager;
 import org.bukkit.GameMode;
@@ -12,10 +13,15 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
-
+/**
+ * Represents a tool that captures mobs and turns them into spawn eggs.
+ */
 public class MobCatcher extends Tool {
     private final static String TOOLID = "mobcatcher";
     public static HashMap<Snowball, Player> mobcatchers = new HashMap<>();
+    /**
+     * Constructs a MobCatcher with default attributes.
+     */
     public MobCatcher() {
         super(
                 TOOLID,
@@ -34,12 +40,19 @@ public class MobCatcher extends Tool {
         addCustomAttribute("can_catch_tamed", false);
     }
 
-
+    /**
+     * Handles player interaction with the Mob Catcher.
+     * Throws a snowball when right-clicked.
+     *
+     * @param event The event triggered by the interaction.
+     */
     @Override
     public void onInteract(PlayerInteractEvent event) {
         if (event.getAction().name().contains("RIGHT_CLICK")) {
             if(!cooldownEnded(event.getPlayer(), true)) {
+                CommandUtils.sendCooldownMessage(event.getPlayer(),getRemainingCooldown(event.getPlayer()));
                 event.setCancelled(true);
+                return;
             }
             ItemStack snowballItem = event.getItem();
 
@@ -53,6 +66,13 @@ public class MobCatcher extends Tool {
         }
     }
 
+    /**
+     * Handles the event when the thrown snowball hits an entity or surface.
+     * Converts the entity into a spawn egg if valid.
+     *
+     * @param player The player who threw the snowball.
+     * @param event The projectile hit event.
+     */
     //When snowball hits something.
     public void onProjectileHit(Player player, ProjectileHitEvent event) {
         Projectile snowball = event.getEntity();
@@ -73,6 +93,12 @@ public class MobCatcher extends Tool {
         }
     }
 
+    /**
+     * Checks if an entity can be captured by the Mob Catcher.
+     *
+     * @param entity The entity to check.
+     * @return True if the entity can be captured, false otherwise.
+     */
     private boolean isValid(Entity entity) {
         if(entity instanceof EnderDragon) {
             return false;
@@ -85,6 +111,12 @@ public class MobCatcher extends Tool {
         return true;
     }
 
+    /**
+     * Gets the corresponding spawn egg material for a given entity.
+     *
+     * @param entity The entity to check.
+     * @return The spawn egg material or null if unavailable.
+     */
     private Material getSpawnEggMaterial(Entity entity) {
         EntityType entityType = entity.getType();
 

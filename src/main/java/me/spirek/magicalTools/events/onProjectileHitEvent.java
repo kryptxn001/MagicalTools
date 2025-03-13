@@ -9,8 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
 public class onProjectileHitEvent implements Listener {
-
-
     @EventHandler
     public void onProjectileHit(ProjectileHitEvent event) {
         if (event.getEntity() instanceof Snowball snowball) {

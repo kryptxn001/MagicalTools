@@ -14,9 +14,11 @@ public class MagicalUpdate implements CommandExecutor {
         if(Objects.equals(label, "magicalupdate")) {
             Player player = (Player) sender;
 
-            if(!player.isOp()) {
-                return false;
+            if(!sender.hasPermission("magicaltools.update")) {
+                CommandUtils.sendNotPermissions(player);
+                return true;
             }
+
             UpdateManager.newUpdate();
             CommandUtils.sendMessageBranded(player, "Updated! New update id: "+UpdateManager.update_id);
         }

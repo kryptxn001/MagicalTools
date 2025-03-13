@@ -4,10 +4,9 @@ main: me.spirek.magicalTools.MagicalTools
 api-version: '1.21'
 author: Krystof Spirek
 description: 'This plugin adds various new magical items and tools.'
-
 commands:
   magicalgive:
-    description: This is a test command.
+    description: Gives magical item to specified player.
     usage: /magicalgive [player] [tool]
   magicalcheck:
     description: Check the item in hand magical ID and Update ID.
@@ -18,3 +17,19 @@ commands:
   magicalhelp:
       description: Useful information about Magical Tools plugin.
       usage: /magicalhelp
+permissions:
+  magicaltools.give:
+    description: Grants access to the magicalgive command.
+    default: op
+  magicaltools.update:
+    description: Grants access to the magicalupdate command.
+    default: op
+  magicaltools.check:
+    description: Grants access to the magicalcheck command.
+    default: op
+  magicaltools.help:
+    description: Shows admin help text instead of showing the generic info text when using the magicalhelp command.
+    default: op
+  magicaltools.ignoredisabled:
+    description: Enables spawning and using disabled magical tools.
+    default: op

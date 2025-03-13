@@ -1,5 +1,6 @@
 package me.spirek.magicalTools.events;
 
+import me.spirek.magicalTools.commands.CommandUtils;
 import me.spirek.magicalTools.tools.Tool;
 import me.spirek.magicalTools.tools.ToolManager;
 import org.bukkit.entity.Player;
@@ -9,7 +10,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class onEntityDamageByEntityEvent implements Listener {
-
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player player) {
@@ -17,7 +17,12 @@ public class onEntityDamageByEntityEvent implements Listener {
 
             Tool tool = ToolManager.getToolbyItemStack(item);
             if(tool != null) {
-                tool.onAttack(event);
+                if(!tool.isDisabled() || player.hasPermission("magicaltools.ignoredisabled")) {
+                    tool.onAttack(event);
+                } else {
+                    CommandUtils.sendItemDisabledMessage(player);
+                    event.setCancelled(true);
+                }
             }
         }
     }

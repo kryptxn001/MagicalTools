@@ -1,5 +1,6 @@
 package me.spirek.magicalTools.tools.tools;
 
+import me.spirek.magicalTools.commands.CommandUtils;
 import me.spirek.magicalTools.tools.Tool;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -9,8 +10,14 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
+/**
+ * Represents a tool that fires a laser beam.
+ */
 public class Raygun extends Tool {
     private final static String TOOLID = "raygun";
+    /**
+     * Constructs a Raygun with default attributes.
+     */
     public Raygun() {
         super(
                 TOOLID,
@@ -30,6 +37,12 @@ public class Raygun extends Tool {
         addCustomAttribute("laserdamage",10D);
     }
 
+    /**
+     * Handles the interaction event when the player uses the Raygun.
+     * Shoots a laser beam in the direction the player is facing.
+     *
+     * @param event The event triggered by the interaction.
+     */
     @Override
     public void onInteract(PlayerInteractEvent event) {
         //Zkontrolovat tlačátko zmáčknuté
@@ -40,6 +53,7 @@ public class Raygun extends Tool {
         Player player = event.getPlayer();
 
         if(!cooldownEnded(player, true)) {
+            CommandUtils.sendCooldownMessage(player,getRemainingCooldown(player));
             return;
         }
 
@@ -89,6 +103,12 @@ public class Raygun extends Tool {
         }
     }
 
+    /**
+     * Draws a visual laser effect from the player's location.
+     *
+     * @param distance The distance of the laser.
+     * @param player The player using the Raygun.
+     */
     private void drawRay(double distance, Player player) {
         double increment = 0.5;
         double max = distance/increment;
@@ -99,6 +119,12 @@ public class Raygun extends Tool {
         }
     }
 
+    /**
+     * Creates an impact effect at the laser's endpoint.
+     *
+     * @param player The player using the Raygun.
+     * @param pos The position where the laser hits.
+     */
     private void Impact(Player player, Vector pos) {
         player.getWorld().spawnParticle(Particle.GLOW_SQUID_INK, pos.toLocation(player.getWorld()),50,1,1,1);
         player.getWorld().playSound(pos.toLocation(player.getWorld()), Sound.ENTITY_FIREWORK_ROCKET_TWINKLE_FAR,0.5f,1f);

@@ -14,32 +14,47 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.tag.DamageTypeTags;
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * Manages the list of tools and their creation.
+ */
 public class ToolManager {
 
     private static final NamespacedKey ITEM_UID_KEY = new NamespacedKey("magicaltools", "tool_id");
     private static final NamespacedKey ITEM_UPDATE_KEY = new NamespacedKey("magicaltools", "update_id");
     private static final ArrayList<Tool> tools = new ArrayList<>();
 
+    /**
+     * Returns a list of all tools.
+     *
+     * @return List of tools.
+     */
     public static ArrayList<Tool> getAllTools() {
         return tools;
     }
 
+    /**
+     * Loads available tools and adds them to the list.
+     */
     public static void loadTools() {
         tools.add(new LightningSword());
         tools.add(new RandomSword());
         tools.add(new MobCatcher());
         tools.add(new MagicalPickaxe());
         tools.add(new Raygun());
-        tools.add(new GravityTool());
+        tools.add(new GravityPipe());
     }
 
-
+    /**
+     * Finds a tool by its ID.
+     *
+     * @param name Tool ID.
+     * @return Tool or null if not found.
+     */
     public static Tool getToolbyID(String name) {
         for (Tool tool : tools) {
             if (Objects.equals(tool.getName(), name)) {
@@ -49,6 +64,12 @@ public class ToolManager {
         return null;
     }
 
+    /**
+     * Finds a tool by its class.
+     *
+     * @param toolclass Tool class.
+     * @return Tool or null if not found.
+     */
     public static Tool getTool(Class<? extends Tool> toolclass) {
         for (Tool tool : tools) {
             if (tool.getClass().equals(toolclass)) {
@@ -58,7 +79,12 @@ public class ToolManager {
         return null;
     }
 
-
+    /**
+     * Finds a tool based on an ItemStack.
+     *
+     * @param itemStack The item to check.
+     * @return Tool or null if not found.
+     */
     public static Tool getToolbyItemStack(ItemStack itemStack) {
         String toolid = getToolID(itemStack);
         for (Tool tool : tools) {
@@ -69,6 +95,12 @@ public class ToolManager {
         return null;
     }
 
+    /**
+     * Creates an ItemStack for a given tool.
+     *
+     * @param tool The tool to create an item for.
+     * @return The created ItemStack.
+     */
     public static ItemStack createItem(Tool tool) {
         // Create the ItemStack
         ItemStack item = new ItemStack(tool.getMaterial());
@@ -119,6 +151,12 @@ public class ToolManager {
         return item;
     }
 
+    /**
+     * Retrieves the tool ID from an ItemStack.
+     *
+     * @param item The item to check.
+     * @return Tool ID or null if not found.
+     */
     public static String getToolID(ItemStack item) {
         if (item == null || item.getType() == Material.AIR) {
             return null;
@@ -133,6 +171,12 @@ public class ToolManager {
         return null;
     }
 
+    /**
+     * Retrieves the update ID of a tool from an ItemStack.
+     *
+     * @param item The item to check.
+     * @return Update ID or -1 if not found.
+     */
     public static int getToolUpdateID(ItemStack item) {
         if (item == null || item.getType() == Material.AIR) {
             return -1;

@@ -13,16 +13,16 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 public class onEntityPickupItemEvent implements Listener {
-
     @EventHandler
     public void onEntityPickupItem(EntityPickupItemEvent event) {
-        if (event.getEntity() instanceof Player) {  // Ensure the entity is a player
+        if (event.getEntity() instanceof Player player) {  // Ensure the entity is a player
             // Check if item needs to be updated based on the update_id
-
             Tool tool = ToolManager.getToolbyItemStack(event.getItem().getItemStack());
 
-
             if (tool != null) {
+                if(tool.isDisabled() || !player.hasPermission("magicaltools.ignoredisabled")) {
+                    event.setCancelled(true);
+                }
                 PersistentDataContainer container = event.getItem().getItemStack().getItemMeta().getPersistentDataContainer();
 
                 if(container.get(UpdateManager.ITEM_UPDATE_KEY, PersistentDataType.INTEGER)!=UpdateManager.update_id) {
@@ -31,10 +31,7 @@ public class onEntityPickupItemEvent implements Listener {
                     newItem.setAmount(amount);
 
                     event.getItem().setItemStack(newItem);
-                    if(event.getEntity() instanceof Player) {
-                        CommandUtils.sendMessageBranded((Player) event.getEntity(), "Item you interacted with was outdated! Item updated now!");
-                    }
-
+                    CommandUtils.sendMessageBranded(player, "Item you interacted with was outdated! Item updated now!");
                 }
             }
         }

@@ -1,10 +1,10 @@
 package me.spirek.magicalTools.tools.tools;
 
+import me.spirek.magicalTools.commands.CommandUtils;
 import me.spirek.magicalTools.tools.Tool;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
-import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -12,10 +12,15 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.util.Vector;
 
 import java.util.Random;
-
-public class GravityTool extends Tool {
-    private final static String TOOLID = "gravitytool";
-    public GravityTool() {
+/**
+ * Tool that manipulates gravity effects on entities.
+ */
+public class GravityPipe extends Tool {
+    private final static String TOOLID = "gravitypipe";
+    /**
+     * Constructs a GravityTool with default attributes.
+     */
+    public GravityPipe() {
         super(
                 TOOLID,
                 "§b§lGravity§6§lPipe",
@@ -34,7 +39,11 @@ public class GravityTool extends Tool {
 
         addCustomAttribute("gravity_multiplier",10D);
     }
-
+    /**
+     * Handles attack interactions and applies gravity effects.
+     *
+     * @param event The entity damage event triggered by an attack.
+     */
     public void onAttack(EntityDamageByEntityEvent event){
         Player player = (Player) event.getDamager();
         Entity entity = event.getEntity();
@@ -55,6 +64,8 @@ public class GravityTool extends Tool {
             } else {
                 player.spawnParticle(Particle.WAX_ON,entity.getLocation().add(0,1,0),20,1,1,1);
             }
+        } else {
+            CommandUtils.sendCooldownMessage(player,getRemainingCooldown(player));
         }
     }
 
