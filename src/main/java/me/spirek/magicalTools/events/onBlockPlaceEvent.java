@@ -7,6 +7,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 public class onBlockPlaceEvent implements Listener {
+    /**
+     * Prevents players from placing magical tools as blocks.
+     *
+     * @param event The BlockPlaceEvent triggered when a player places a block.
+     */
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         Tool toolinhand = ToolManager.getToolbyItemStack(event.getItemInHand());

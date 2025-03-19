@@ -13,6 +13,11 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 public class onEntityPickupItemEvent implements Listener {
+    /**
+     * Prevents players from picking up disabled magical tools and updates outdated items.
+     *
+     * @param event The EntityPickupItemEvent triggered when an entity picks up an item.
+     */
     @EventHandler
     public void onEntityPickupItem(EntityPickupItemEvent event) {
         if (event.getEntity() instanceof Player player) {  // Ensure the entity is a player

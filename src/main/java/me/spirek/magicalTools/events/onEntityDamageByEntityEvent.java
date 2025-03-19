@@ -10,6 +10,11 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class onEntityDamageByEntityEvent implements Listener {
+    /**
+     * Handles entity damage by players, allowing magical tools to apply their effects.
+     *
+     * @param event The EntityDamageByEntityEvent triggered when an entity is damaged by another.
+     */
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player player) {

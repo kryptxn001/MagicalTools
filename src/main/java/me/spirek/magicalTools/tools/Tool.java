@@ -181,7 +181,6 @@ public abstract class Tool {
      * @param event The event triggered by the attack.
      */
     public void onAttack(EntityDamageByEntityEvent event) { //kdyz predmet uderi
-
     }
 
     /**
@@ -190,7 +189,6 @@ public abstract class Tool {
      * @param event The event triggered by the interaction.
      */
     public void onInteract(PlayerInteractEvent event) { //kdyz predmet uderi
-
     }
 
     /**
@@ -198,8 +196,14 @@ public abstract class Tool {
      *
      * @param event The event triggered by the block break.
      */
-    public void onBlockBreak(BlockBreakEvent event) {
-
+    public void onBlockBreak(BlockBreakEvent event) { }
+    /**
+     * Retrieves the tool's disabled boolean.
+     *
+     * @return The tool's disabled.
+     */
+    public boolean isDisabled() {
+        return disabled;
     }
 
     /**
@@ -207,10 +211,6 @@ public abstract class Tool {
      *
      * @return The tool's label.
      */
-
-    public boolean isDisabled() {
-        return disabled;
-    }
     public String getLabel() {
         return label;
     }

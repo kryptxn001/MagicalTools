@@ -42,7 +42,7 @@ public class ToolManager {
      */
     public static void loadTools() {
         tools.add(new LightningSword());
-        tools.add(new RandomSword());
+        tools.add(new RandomAxe());
         tools.add(new MobCatcher());
         tools.add(new MagicalPickaxe());
         tools.add(new Raygun());

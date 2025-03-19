@@ -12,6 +12,15 @@ import org.bukkit.entity.Player;
 import java.util.Objects;
 
 public class MagicalHelp implements CommandExecutor {
+    /**
+     * Handles the "/magicalhelp" command, show the player a help page.
+     *
+     * @param sender  The entity (player or console) that executed the command.
+     * @param command The command that was executed.
+     * @param label   The alias of the command used.
+     * @param args    Additional arguments provided with the command.
+     * @return        True if the command was handled successfully.
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (Objects.equals(label, "magicalhelp")) {
@@ -23,10 +32,10 @@ public class MagicalHelp implements CommandExecutor {
             }
 
             if (args.length == 0) {
-                //HELP obecne
+                //HELP normalni
                 CommandUtils.sendMessageBranded(player, "Welcome to the MagicalTools v"+MagicalTools.VERSION+" admin help page.\n--------------------------------------------------\nWeapons and tools can be obtained via the /magicalgive command.\nTo check the magical tool ID and Update ID of the item in hand, use the /magicalcheck command.\nIf you changed the attributes of a tool in the config file, you must use the /magicalupdate afterwards the server got reloaded. Otherwise the outdated tools will not update.");
             } else if (args.length == 1) {
-                // HELP prikaz
+                // HELP admin
                 switch (args[0]) {
                     case "magicalgive" -> CommandUtils.sendMessageBranded(player, "Gives a player magical tool. \n" +
                             "Usage: /magicalgive [player] [tool]");

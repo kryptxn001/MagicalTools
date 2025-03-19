@@ -14,7 +14,10 @@ public final class MagicalTools extends JavaPlugin {
     public static final String NAMESPACE = "magicaltools";
     public static final String VERSION = "1.0";
     public static final String WEBSITE = "https://github.com/kryptxn001";
-
+    /**
+     * Triggers when the plugin is starting.
+     * Loads all the necessary things.
+     */
     @Override
     public void onEnable() {
         ConfigManager.initialize(this);
@@ -44,11 +47,11 @@ public final class MagicalTools extends JavaPlugin {
     }
 
     @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-        Bukkit.getConsoleSender().sendMessage("§3Magical Tools is shutting down!");
-    }
-
+    public void onDisable() { }
+    /**
+     * Serves like a container for handling settings.
+     *
+     */
     public static class Settings {
         protected static boolean showCooldown;
         public static boolean shouldShowCooldown() {

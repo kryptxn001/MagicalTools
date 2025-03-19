@@ -15,11 +15,11 @@ tools:
     material: "IRON_SWORD" #STRING: the item material (for example Diamond Sword, or Blaze rot, etc...)
     unbreakable: true #BOOLEAN: true/false
     shine: false #BOOLEAN: true/false
-    custom_model: true #BOOLEAN: true/false
+    custom_model: false #BOOLEAN: true/false
     meleedamage: 1 #DOUBLE
-    cooldown: 3000 #INTEGER
+    cooldown: 3000 #INTEGER In milliseconds
     #Unique attributes to this item
-    chance: 50 #INTEGER
+    chance: 50 #INTEGER In % (0-100)
   raygun: #DO NOT CHANGE! ID of the tool. You can only add new custom attributes by adding existing Tool id to the config.
     disabled: false
     label: "§2§lRaygun"
@@ -29,7 +29,7 @@ tools:
     material: "ECHO_SHARD"
     unbreakable: true
     shine: true
-    custom_model: true
+    custom_model: false
     meleedamage: 1
     cooldown: 2000
     #Unique attributes to this item
@@ -48,9 +48,9 @@ tools:
     #Unique attributes to this item
     mining_radius: 1 #INTEGER
     destroy_particle: "LAVA" #STRING
-  randomsword: #DO NOT CHANGE! ID of the tool. You can only add new custom attributes by adding existing Tool id to the config.
+  randomaxe: #DO NOT CHANGE! ID of the tool. You can only add new custom attributes by adding existing Tool id to the config.
     disabled: false
-    label: "§f§k§lkkk §r§4§lGambler's Axe §f§k§lkkk"
+    label: "§f§k§lkkk §r§4§lRandom Axe§f§k§lkkk"
     lore:
       - "§8Very heavy axe with a strong hit."
       - "§825% chance to deal damage."

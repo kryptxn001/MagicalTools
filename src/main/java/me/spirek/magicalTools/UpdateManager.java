@@ -15,6 +15,10 @@ public class UpdateManager {
     public static int update_id;
     public static final NamespacedKey ITEM_UPDATE_KEY = new NamespacedKey("magicaltools", "update_id");
 
+    /**
+     * Trigger when the magicalupdate is run.
+     * Sets a different update ID by increasing the old one.
+     */
     public static void newUpdate() {
         ConfigManager.getConfig().set("update_id", update_id + 1);
         ConfigManager.saveConfig();

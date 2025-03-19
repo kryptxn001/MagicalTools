@@ -11,15 +11,15 @@ import java.util.Random;
 /**
  * Represents a weapon with a chance-based attack.
  */
-public class RandomSword extends Tool {
-    private final static String TOOLID = "randomsword";
+public class RandomAxe extends Tool {
+    private final static String TOOLID = "randomaxe";
     /**
      * Constructs a Random Sword with default attributes.
      */
-    public RandomSword() {
+    public RandomAxe() {
         super(
                 TOOLID,
-                "§f§k§lkkk §r§4§lGambler's Axe §f§k§lkkk",
+                "§f§k§lkkk §r§4§lRandom Axe§f§k§lkkk",
                 new String[] {
                         "§8Very heavy axe with a strong hit.",
                         "§825% chance to deal damage.",

@@ -14,6 +14,11 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 public class onInventoryClickEvent implements Listener {
+    /**
+     * Updates outdated magical tools when a player interacts with their inventory.
+     *
+     * @param event The InventoryClickEvent triggered when a player clicks an inventory slot.
+     */
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         if(event.getWhoClicked().getGameMode().equals(GameMode.CREATIVE)) {
@@ -35,10 +40,5 @@ public class onInventoryClickEvent implements Listener {
                 CommandUtils.sendMessageBranded((Player) event.getWhoClicked(), "Item you interacted with was outdated! Item updated now!");
             }
         }
-
-
-
-
-
     }
 }

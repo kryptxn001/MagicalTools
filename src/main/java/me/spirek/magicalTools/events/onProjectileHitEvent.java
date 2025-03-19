@@ -9,6 +9,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
 public class onProjectileHitEvent implements Listener {
+    /**
+     * Handles projectile hits when using the MobCatcher tool.
+     *
+     * @param event The ProjectileHitEvent triggered when a projectile impacts an object or entity.
+     */
     @EventHandler
     public void onProjectileHit(ProjectileHitEvent event) {
         if (event.getEntity() instanceof Snowball snowball) {

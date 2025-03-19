@@ -10,6 +10,15 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Objects;
 
 public class MagicalCheck implements CommandExecutor {
+    /**
+     * Handles the "/magicalcheck" command, checking if the item in the player's main hand is a magical tool.
+     *
+     * @param sender  The entity (player or console) that executed the command.
+     * @param command The command that was executed.
+     * @param label   The alias of the command used.
+     * @param args    Additional arguments provided with the command.
+     * @return        True if the command was handled successfully.
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(Objects.equals(label, "magicalcheck")) {

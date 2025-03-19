@@ -51,9 +51,8 @@ public class MagicalPickaxe extends Tool {
 
         if(!cooldownEnded(event.getPlayer(), true)) {
             event.setCancelled(true);
-            return;
-        } else {
             CommandUtils.sendCooldownMessage(event.getPlayer(),getRemainingCooldown(event.getPlayer()));
+            return;
         }
 
         int centerX = event.getBlock().getX();

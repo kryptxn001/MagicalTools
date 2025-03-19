@@ -12,6 +12,11 @@ import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 
 public class onCraftingEvent implements Listener {
+    /**
+     * Prevents crafting recipes from using magical tools.
+     *
+     * @param event The PrepareItemCraftEvent triggered when a player prepares a crafting recipe.
+     */
     @EventHandler
     public void onPrepareItemCraft(PrepareItemCraftEvent event) {
         CraftingInventory inventory = event.getInventory();
@@ -30,7 +35,11 @@ public class onCraftingEvent implements Listener {
             }
         }
     }
-
+    /**
+     * Cancels crafting if a magical tool is present in the crafting grid.
+     *
+     * @param event The CraftItemEvent triggered when a player attempts to craft an item.
+     */
     @EventHandler
     public void onCraftItem(CraftItemEvent event) {
         CraftingInventory inventory = event.getInventory();

@@ -8,6 +8,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class onPlayerInteractEvent implements Listener {
+    /**
+     * Handles player interactions with magical tools.
+     *
+     * @param event The PlayerInteractEvent triggered when a player interacts with an object or the world.
+     */
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         Tool tool = ToolManager.getToolbyItemStack(event.getItem());

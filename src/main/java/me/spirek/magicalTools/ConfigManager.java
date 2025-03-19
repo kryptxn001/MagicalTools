@@ -11,6 +11,11 @@ public class ConfigManager {
     private static File configFile;
     private static FileConfiguration config;
 
+    /**
+     * Loads (or creates) the config file.
+     *
+     * @param plugin The plugin object (JavaPlugin).
+     */
     public static void initialize(MagicalTools plugin) {
         configFile = new File(plugin.getDataFolder(), "config.yml");
         if (!configFile.exists()) {
@@ -20,10 +25,18 @@ public class ConfigManager {
         UpdateManager.update_id = config.getInt("update_id",0);
     }
 
+    /**
+     * Retrieves the config.
+     *
+     */
     public static FileConfiguration getConfig() {
         return config;
     }
 
+    /**
+     * Saves the config.
+     *
+     */
     public static void saveConfig() {
         try {
             config.save(configFile);
