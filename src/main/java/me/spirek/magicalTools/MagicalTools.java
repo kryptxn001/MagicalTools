@@ -10,10 +10,13 @@ import me.spirek.magicalTools.tools.ToolManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Random;
+
 public final class MagicalTools extends JavaPlugin {
     public static final String NAMESPACE = "magicaltools";
     public static final String VERSION = "1.0";
     public static final String WEBSITE = "https://github.com/kryptxn001";
+    public static final Random random = new Random();
     /**
      * Triggers when the plugin is starting.
      * Loads all the necessary things.
@@ -21,6 +24,7 @@ public final class MagicalTools extends JavaPlugin {
     @Override
     public void onEnable() {
         ConfigManager.initialize(this);
+
         Settings.showCooldown = ConfigManager.getConfig().getBoolean("settings.showCooldownTimeRemaining", true);
         Settings.notpermissions = ConfigManager.getConfig().getString("settings.NoPermissionsMessage", "§c§l[MagicalTools] §r§cYou don't have permissions to execute this command!");
         Settings.cooldownmessage = ConfigManager.getConfig().getString("settings.CooldownRemainingMessage", "§c§l[MagicalTools] §r§cYou can't use it! Cooldown remaining: {time}.");

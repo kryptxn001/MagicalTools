@@ -1,12 +1,12 @@
 package me.spirek.magicalTools.tools.tools;
 
+import me.spirek.magicalTools.MagicalTools;
 import me.spirek.magicalTools.commands.CommandUtils;
 import me.spirek.magicalTools.tools.Tool;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import java.util.Random;
 
 /**
  * Represents a weapon with a chance-based attack.
@@ -14,7 +14,7 @@ import java.util.Random;
 public class RandomAxe extends Tool {
     private final static String TOOLID = "randomaxe";
     /**
-     * Constructs a Random Sword with default attributes.
+     * Constructs a Random Axe with default attributes.
      */
     public RandomAxe() {
         super(
@@ -49,9 +49,8 @@ public class RandomAxe extends Tool {
         Player player = (Player) event.getDamager();
         Entity entity = event.getEntity();
 
-        Random random = new Random();
         if(cooldownEnded(player, true)) {
-            int chance = random.nextInt(100);
+            int chance = MagicalTools.random.nextInt(101);
             if(chance < getCustomAttribute("chance",int.class)) {
                 event.setCancelled(false);
                 player.spawnParticle(Particle.LARGE_SMOKE,entity.getLocation().add(0,1,0),20);

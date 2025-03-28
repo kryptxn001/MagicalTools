@@ -1,5 +1,6 @@
 package me.spirek.magicalTools.tools.tools;
 
+import me.spirek.magicalTools.MagicalTools;
 import me.spirek.magicalTools.commands.CommandUtils;
 import me.spirek.magicalTools.tools.Tool;
 import org.bukkit.*;
@@ -48,9 +49,8 @@ public class LightningSword extends Tool {
         Player player = (Player) event.getDamager();
         Entity entity = event.getEntity();
 
-        Random random = new Random();
         if(cooldownEnded(player, true)) {
-            int chance = random.nextInt(100);
+            int chance = MagicalTools.random.nextInt(101);
             if(chance <= getCustomAttribute("chance",int.class)) {
                 World world = entity.getWorld();
                 Location location = entity.getLocation();

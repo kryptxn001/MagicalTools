@@ -45,7 +45,6 @@ public class Raygun extends Tool {
      */
     @Override
     public void onInteract(PlayerInteractEvent event) {
-        //Zkontrolovat tlačátko zmáčknuté
         if (!event.getAction().name().contains("RIGHT_CLICK")) {
             return;
         }
@@ -59,7 +58,7 @@ public class Raygun extends Tool {
 
         player.playSound(player, Sound.ENTITY_ARMADILLO_BRUSH,2,1);
 
-        //Získat normalizovaný směrový vector (kam hráč kouká)
+        //Normalized directional vector of where the player is looking.
         Vector dirvec = player.getLocation().getDirection().normalize();
         Location eyeloc = player.getLocation().add(0,player.getEyeHeight(),0);
         Location offsetloc = eyeloc.add(dirvec.multiply(2));
@@ -67,30 +66,33 @@ public class Raygun extends Tool {
         double blockdistance = 100;
         Block hitblock = null;
 
+        //Getting the raytrace block result
         RayTraceResult rayTraceBlockResult = player.rayTraceBlocks(32,FluidCollisionMode.NEVER);
         if(rayTraceBlockResult != null && rayTraceBlockResult.getHitBlock() != null) {
             hitblock = rayTraceBlockResult.getHitBlock();
             blockdistance = eyeloc.distance(hitblock.getLocation());
         }
 
+        //Getting the raytrace entity result
         RayTraceResult rayTraceResult = player.getWorld().rayTraceEntities(offsetloc,dirvec,32);
         if(rayTraceResult != null && rayTraceResult.getHitEntity() != null) {
-            //Pokud raycast něco vrátil.
+            //If there is an entity.
             double entitydistance = eyeloc.distance(rayTraceResult.getHitEntity().getLocation());
+            //If the block raytrace result isn't empty and the distance to the block is closer.
             if(blockdistance < entitydistance && hitblock != null) {
                 if(!hitblock.isPassable()) {
-                    //Pokud byl block blíž než entita (znamená že blok byl před entitou a tudiž nemůže být zasažena)
+                    //If the block isn't passable, make the impact effect.
                     drawRay(blockdistance-blockdistance*0.5, player);
                     Impact(player, rayTraceBlockResult.getHitPosition());
                     return;
                 }
             }
             if(rayTraceResult.getHitEntity() instanceof LivingEntity entity) {
-                //Zásah entity
+                //Damage the entity.
                 entity.damage(getCustomAttribute("laserdamage",double.class),player);
                 player.playSound(player, Sound.BLOCK_AMETHYST_BLOCK_HIT,2,1);
             }
-            //Jen effekt zasažení
+            //Impact effect on the block/entity position and draw ray.
             drawRay(entitydistance*0.5, player);
             Impact(player, rayTraceResult.getHitPosition());
             return;
@@ -98,7 +100,6 @@ public class Raygun extends Tool {
 
         drawRay(Math.clamp(blockdistance-blockdistance*0.5,0,32), player);
         if(blockdistance != 100) {
-            //Jen effekt zasažení
             Impact(player, rayTraceBlockResult.getHitPosition());
         }
     }

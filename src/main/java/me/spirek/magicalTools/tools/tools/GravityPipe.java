@@ -1,5 +1,6 @@
 package me.spirek.magicalTools.tools.tools;
 
+import me.spirek.magicalTools.MagicalTools;
 import me.spirek.magicalTools.commands.CommandUtils;
 import me.spirek.magicalTools.tools.Tool;
 import org.bukkit.Material;
@@ -57,8 +58,8 @@ public class GravityPipe extends Tool {
                 ((LivingEntity) entity).damage(getMeleedamage(),player);
             }
             player.playSound(entity.getLocation(), Sound.ENTITY_SHULKER_CLOSE, 1f, 1f);
-            Random random = new Random();
-            int chance = random.nextInt(100);
+
+            int chance = MagicalTools.random.nextInt(101);
             if(chance < 50) {
                 player.spawnParticle(Particle.SCRAPE,entity.getLocation().add(0,1,0),20, 1,1,1);
             } else {
