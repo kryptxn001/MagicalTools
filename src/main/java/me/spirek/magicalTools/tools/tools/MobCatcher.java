@@ -5,6 +5,7 @@ import me.spirek.magicalTools.tools.Tool;
 import me.spirek.magicalTools.tools.ToolManager;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -84,6 +85,7 @@ public class MobCatcher extends Tool {
             player.sendMessage(getCustomAttribute("catch_message",String.class).replace("{caught_entity}",hitEntity.getName()));
             player.playSound(event.getEntity().getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.5F,1);
             snowball.getWorld().dropItem(event.getEntity().getLocation(),new ItemStack(spawnegg));
+            player.spawnParticle(Particle.SONIC_BOOM,event.getEntity().getLocation(),1,0,0,0);
             hitEntity.remove();
 
         } else {

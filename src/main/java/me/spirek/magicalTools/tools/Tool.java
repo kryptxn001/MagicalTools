@@ -1,6 +1,7 @@
 package me.spirek.magicalTools.tools;
 
 import me.spirek.magicalTools.ConfigManager;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -94,13 +95,21 @@ public abstract class Tool {
             }
 
             List<String> lore = config.getStringList(path + ".lore");
-            if (!lore.isEmpty()) {
-                this.lore = lore.toArray(new String[0]);
+            if (config.isSet(path + ".lore")) {
+                if(!lore.isEmpty()) {
+                    this.lore = lore.toArray(new String[0]);
+                } else {
+                    Bukkit.getConsoleSender().sendMessage("§c[MagicalTools] "+name+": Lore specified isn't a list! Use \"- \" before every line.");
+                }
             }
 
             String materialStr = config.getString(path + ".material");
             if (materialStr != null && !materialStr.isEmpty()) {
-                this.material = Material.valueOf(materialStr);
+                try {
+                    this.material = Material.valueOf(materialStr);
+                } catch (IllegalArgumentException exception) {
+                    Bukkit.getConsoleSender().sendMessage("§c[MagicalTools] "+name+": Material specified doesn't exist!");
+                }
             }
 
             String unbreakableStr = config.getString(path + ".unbreakable");
@@ -120,12 +129,20 @@ public abstract class Tool {
 
             String meleeDamageStr = config.getString(path + ".meleedamage");
             if (meleeDamageStr != null && !meleeDamageStr.isEmpty()) {
-                this.meleedamage = Double.parseDouble(meleeDamageStr);
+                try {
+                    this.meleedamage = Double.parseDouble(meleeDamageStr);
+                } catch (Exception exception) {
+                    Bukkit.getConsoleSender().sendMessage("§c[MagicalTools] "+name+": Melee Damage specified isn't a valid number!");
+                }
             }
 
             String cooldownStr = config.getString(path + ".cooldown");
             if (cooldownStr != null && !cooldownStr.isEmpty()) {
-                this.cooldown = Long.parseLong(cooldownStr);
+                try {
+                    this.cooldown = Long.parseLong(cooldownStr);
+                } catch (Exception exception) {
+                    Bukkit.getConsoleSender().sendMessage("§c[MagicalTools] "+name+": Cooldown specified isn't a valid number!");
+                }
             }
         }
     }
